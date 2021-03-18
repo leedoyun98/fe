@@ -4,42 +4,42 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import BlogSidebar from "../../wrappers/blog/BlogSidebar";
-import BlogComment from "../../wrappers/blog/BlogComment";
-import BlogPostDetail from "../../wrappers/blog/BlogPostDetail";
-
-const BlogDetailsStandard = ({ location }) => {
+import BlogPagination from "../../wrappers/blog/BlogPagination";
+import BlogPostsNoSidebar from "../../wrappers/blog/BlogPostsNoSidebar";
+import BlogPostList from "../../wrappers/blog/BlogPostList";
+const BlogList = ({ location }) => {
   const { pathname } = location;
 
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Blog Post</title>
+        <title>Flone | Blog</title>
         <meta
           name="description"
-          content="Blog post page of flone react minimalist eCommerce template."
+          content="Blog of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Blog Post
+        Blog
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
-        <div className="blog-area pt-100 pb-100">
+        <div className="blog-area pt-100 pb-100 blog-no-sidebar">
           <div className="container">
-            <div className="row flex-row-reverse">
-              <div className="col-lg-9">
-                <div className="blog-details-wrapper ml-20">
-                  {/* blog post */}
-                  <BlogPostDetail />
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="mr-20">
+                  <div className="row">
+                    {/* blog posts */}
+                    <BlogPostList />
+                  </div>
 
-                  {/* blog post comment */}
-                  <BlogComment />
+                  {/* blog pagination */}
+                  <BlogPagination />
                 </div>
               </div>
-              
             </div>
           </div>
         </div>
@@ -48,8 +48,8 @@ const BlogDetailsStandard = ({ location }) => {
   );
 };
 
-BlogDetailsStandard.propTypes = {
+BlogList.propTypes = {
   location: PropTypes.object
 };
 
-export default BlogDetailsStandard;
+export default BlogList;

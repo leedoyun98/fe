@@ -6,11 +6,11 @@ import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-
+import {HomeFashionThree} from './cmm/pages/index'
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
 const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
-const HomeFashionThree = lazy(() => import("./pages/home/HomeFashionThree"));
+// const HomeFashionThree = lazy(() => import("./cmm/pages/HomeFashionThree"));
 const HomeFashionFour = lazy(() => import("./pages/home/HomeFashionFour"));
 const HomeFashionFive = lazy(() => import("./pages/home/HomeFashionFive"));
 const HomeFashionSix = lazy(() => import("./pages/home/HomeFashionSix"));
@@ -89,6 +89,7 @@ const ProductFixedImage = lazy(() =>
 );
 
 // blog pages
+const BlogList = lazy(()=> import("./pages/blog/BlogList"))
 const BlogDetail = lazy(()=> import("./pages/blog/BlogDetail"))
 const BlogStandard = lazy(() => import("./pages/blog/BlogStandard"));
 const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
@@ -386,6 +387,10 @@ const App = (props) => {
                   <Route
                   path={process.env.PUBLIC_URL + "/blog-detail"}
                   component={BlogDetail}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-list"}
+                  component={BlogList}
                 />
 
                 {/* Other pages */}

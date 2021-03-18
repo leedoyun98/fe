@@ -1,37 +1,12 @@
 import MetaTags from "react-meta-tags";
-import LayoutOne from "../../layouts/LayoutOne";
-import FeatureIconTwo from "../../wrappers/feature-icon/FeatureIconTwo";
-import BlogFeatured from "../../wrappers/blog-featured/BlogFeatured";
-import HeroSliderTen from "../../wrappers/hero-slider/HeroSliderTen";
-import NewProductGrid from "../../wrappers/product/NewProductGrid";
+import {LayoutOne,FeatureIconTwo,BlogFeatured,HeroSliderTen,NewProductGrid} from '../modules/index'
 import React, { useState, Fragment,useEffect } from 'react'
 import axios from 'axios';
 
-const HomeFashionThree = () => {
-  const [board, setBoard] = useState([])
-  const URL = '/board/all'
- useEffect(()=>{
-   axios.get(URL, )
-   .then((resp) => {
-     alert('restful success')
-     setBoard(resp.data)
-   })
-   .catch((error) => {
-     alert('실패')
-     throw error;
-   })
-   
- },[])
+export const HomeFashionThree = () => {
+
   return (<>
-   <ul>
-     {board.map(i => (
-       <il
-         key = {i.brdNo}
-         >
-           {i.brdContent}
-       </il>
-     ))}
-     </ul>
+
     <Fragment>
       <MetaTags>
         <title>Flone | Fashion Home</title>

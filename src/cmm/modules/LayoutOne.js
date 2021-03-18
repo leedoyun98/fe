@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import HeaderOne from "../wrappers/header/HeaderOne";
-import FooterOne from "../wrappers/footer/FooterOne";
+import HeaderOne from "../../wrappers/header/HeaderOne";
+import FooterOne from "../../wrappers/footer/FooterOne";
 
 export const LayoutOne = ({
   children,
