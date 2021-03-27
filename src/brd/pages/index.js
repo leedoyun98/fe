@@ -1,2 +1,4 @@
-export {BoardHeader} from './BoardHeader'
-export {BoardPage} from './BoardPage'
+export {BlogDetail} from './BlogDetail'
+export {BlogList} from './BlogList'
+export {BlogDetailsStandard} from './BlogDetailsStandard'
+export {BlogUpdate} from './BlogUpdate'

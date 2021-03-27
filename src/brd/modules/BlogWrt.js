@@ -1,73 +1,76 @@
 import React, { useState, Fragment,useEffect } from 'react'
-import { Link, Route, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {makeStyles} from '@material-ui/styles'
-import axios from 'axios';
+import axios from 'axios'
+import imageCompression from "browser-image-compression";
+import { useForm } from 'react-hook-form'
+import Dropzone from 'react-dropzone'
+import  { useHistory} from 'react-router'; 
+
 const useStyles = makeStyles (()=>({
         image: {height:40, width:40}
-}))
+}))	
 
 
-const BlogPost = () => {
-    const [board, setBoard] = useState([])
-const URL =  '/board/option/{localStorage.getItem(`brdTitle`)}'
+export const BlogWrt = () => {
+  const history = useHistory()
+  const [brdTitle, setBrdTitle] = useState('')
+  const [brdContent, setBrdContent] = useState('')
+  const [brdWrtDate, setBrdWrtDate] = useState('')
+  const [brdRank, setBrdRank] = useState('')
+  const [brdImg, setBrdImg] = useState('')
+  const [brdLike, setBrdLike] = useState('')
+  const [brdNikcname, setBrdNikcname] = useState('')
 
-useEffect(()=>{
- axios.get(URL, )
- .then(({data}) => {
-   setBoard(data)
+  const { register,handleSubmit} = useForm() 
+
+
+  const wrt = () => {
+  axios.post("http://localhost:8080/board/save",{
+    brdTitle,brdContent,brdWrtDate,brdRank,brdImg,brdLike,brdNikcname
+  })
+  .then(resp => {
+    alert('글쓰기 성공')
+    history.push('/blog-list')
+  })
+  .catch(err => {
+    alert('글쓰기 실패')
+  })
+  }
   
- })
- .catch((error) => {
-   alert('실패')
-   throw error;
- })
- 
-},[])
-  return (
+  return (<>
+
     <Fragment>
       <div className="blog-details-top">
         <div className="blog-details-img">
-          <img
-            alt=""
-            src={process.env.PUBLIC_URL + "/assets/img/blog/blog-5.jpg"}
-          />
+          <form onSubmit={handleSubmit()}>
+        <div>
+          
+        <h5>사진 업로드: 
+        <input ref={register} type="file"accept="image/*" name="brdImg" onChange={ e => {setBrdImg(`${ e.target.value }`)}}/>
+                    
+        </h5>
+       </div>
+       </form>
         </div>
         <div className="blog-details-content">
           <div className="blog-meta-2">
             <ul>
-              <li>22 April, 2018</li>
+              
               <li>
                 <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                  4 <i className="fa fa-comments-o" />
+                  
                 </Link>
               </li>
             </ul>
           </div>
-          <h3 type="text">14 Emerging Fashion Influencers Who Are Going to Own 2018</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprhendit
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qei
-            officia deser mollit anim id est laborum. Sed ut perspiciatis unde
-            omnis iste natus error sit voluptatem accusantium doloremque
-            laudantium, totam rem aperiam.{" "}
+    <form>
+         <td ><h3><input type="text" id ="title" placeholder="글 제목 입력"   onChange = { e => {setBrdTitle(`${e.target.value}`)}}/></h3></td>
+          <div type></div>
+          <td ><textarea rows="55" cols="250" id="content" placeholder="글 내용 입력"  onChange = { e => {setBrdContent(`${e.target.value}`)}}
+          ><p>
           </p>
-          <blockquote>
-            Lorem ipsum dolor sit amet, consecte adipisicing elit, sed do
-            eiusmod tempor incididunt labo dolor magna aliqua. Ut enim ad minim
-            veniam quis nostrud.
-          </blockquote>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehendrit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
-          </p>
+       </textarea></td></form>
         </div>
       </div>
       <div className="dec-img-wrapper">
@@ -91,15 +94,10 @@ useEffect(()=>{
                 }
               />
             </div>
+            <button type="submit" onClick= {wrt}>글 작성 완료</button>
           </div>
         </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehendrit
-          in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>
+     
       </div>
       <div className="tag-share">
         <div className="dec-tag">
@@ -154,7 +152,8 @@ useEffect(()=>{
         </Link>
       </div>
     </Fragment>
+    </>
   );
 };
 
-export default BlogPost;
+export default BlogWrt;

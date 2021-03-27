@@ -6,9 +6,8 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogComment from "../../wrappers/blog/BlogComment";
-import BlogPost from "../../wrappers/blog/BlogPost";
-import BlogWrt from "../../wrappers/blog/BlogWrt"
-const BlogDetailsStandard = ({ location }) => {
+import {BlogWrt} from "../modules/index"
+export const BlogDetail = ({ location }) => {
   const { pathname } = location;
 
   return (
@@ -51,8 +50,8 @@ const BlogDetailsStandard = ({ location }) => {
   );
 };
 
-BlogDetailsStandard.propTypes = {
+BlogDetail.propTypes = {
   location: PropTypes.object
 };
 
-export default BlogDetailsStandard;
+export default BlogDetail;

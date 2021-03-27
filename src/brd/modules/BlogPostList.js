@@ -1,16 +1,43 @@
 import { Link, Route, Router } from "react-router-dom";
-import React, { useState, Fragment,useEffect } from 'react'
+import React, { useState, Fragment,useEffect,Component } from 'react'
 import axios from 'axios';
+
 import styled, { createGlobalStyle } from "styled-components";
-const BlogPostList = ({ history }) => {
+// const IconGroup = ({
+//   currency,
+//   cartData,
+//   wishlistData,
+//   compareData,
+//   deleteFromCart,
+//   iconWhiteClass
+// }) => {
+//   const handleClick = e => {
+//     e.currentTarget.nextSibling.classList.toggle("active");
+//   };
+export const BlogPostList= ({ history })=>{
+  const [text,setText] = useState('')
+  const ser = (e) =>{
+    setText(e.target.value)
+  }
+
   const [board, setBoard] = useState([])
+  const [brdNo, setBrdNo] = useState([])
+  const [brdTitle, setBrdTitle] = useState('')
   const URL = '/board/all'
-  
+  const brdWrt = () =>{
+    axios.post("http://localhost:8080/board/seach",{
+      brdTitle
+    }).then(resp=>{
+      alert(`성공`)
+  }).catch(err=>{
+    alert(`err`)
+    throw err
+  })
+  }
  useEffect(()=>{
    axios.get(URL, )
    .then(({data}) => {
-     setBoard(data)
-    
+    setBoard(data)
     
    })
    .catch((error) => {
@@ -23,15 +50,16 @@ const BlogPostList = ({ history }) => {
   return (
     <>
     <Fragment>
-      {board.map((b, index) => (
-      <div className="col-lg-4 col-md-6 col-sm-12" key={b.brdNo}>
+      
+      {board.map(b => (
+
+      <div className="col-lg-4 col-md-6 col-sm-12"  >
         <div className="blog-wrap-2 mb-30">
           <div className="blog-img-2">
+            
             <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
               <img
-                src={process.env.PUBLIC_URL + "/assets/img/blog/blog-9.jpg"}
-                alt=""
-              />
+                src={b.brdImg} alt={b.brdImg} /> 
             </Link>
           </div>
           <div className="blog-content-2">
@@ -40,15 +68,15 @@ const BlogPostList = ({ history }) => {
                 <li>{b.brdWrtDate}</li>
                 <li>
                   <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                     <i className="fa fa-comments-o" />
+                     <i className="fa fa-comments-o"/>
                   </Link>
                 </li>
               </ul>
             </div>
             <h4>
-              <Link to="/blog-details-standard" >
+              <Link to={`/blog-details-standard/`+b.brdNo} key={b.brdNo} onClick={() => localStorage.setItem('brdNo', JSON.stringify(b.brdNo))} >
               {b.brdTitle}
-
+              
               </Link>
             </h4>
             <p>
@@ -90,11 +118,21 @@ const BlogPostList = ({ history }) => {
           </div>
        
       ))}
+          <div className="same-style header-search d-none d-lg-block">
+    <div className="search-content">
+          <form action="#">
+            <input type="text" placeholder="Search" onChange={ e => {setBrdTitle(`${e.target.value}`)}}/>
+            <button  className="button-search" onClick={brdWrt}>
+              <i className="pe-7s-search" />
+            </button>
+          </form>
+        </div>
+    </div>
     </Fragment>
-    
-   <a href="#"><Link to= '/blog-detail'>글 작성하기</Link></a>
+
+   <a class="float-right" href="#"><Link to= '/blog-detail'>글 작성하기</Link></a>
     </>
   );
-};
+      };
 
-export default BlogPostList;
+export default BlogPostList

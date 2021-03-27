@@ -7,6 +7,8 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import {HomeFashionThree} from './cmm/pages/index'
+import {BlogDetail,BlogList,BlogDetailsStandard,BlogUpdate} from './brd/pages/index'
+
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
 const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
@@ -89,14 +91,14 @@ const ProductFixedImage = lazy(() =>
 );
 
 // blog pages
-const BlogList = lazy(()=> import("./pages/blog/BlogList"))
-const BlogDetail = lazy(()=> import("./pages/blog/BlogDetail"))
+// const BlogList = lazy(()=> import("./pages/blog/BlogList"))
+// const BlogDetail = lazy(()=> import("./brd/pages/BlogDetail"))
 const BlogStandard = lazy(() => import("./pages/blog/BlogStandard"));
 const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
 const BlogRightSidebar = lazy(() => import("./pages/blog/BlogRightSidebar"));
-const BlogDetailsStandard = lazy(() =>
-  import("./pages/blog/BlogDetailsStandard")
-);
+// const BlogDetailsStandard = lazy(() =>
+//   import("./pages/blog/BlogDetailsStandard")
+// );
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
@@ -368,6 +370,10 @@ const App = (props) => {
                 />
 
                 {/* Blog pages */}
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-update"}
+                  component={BlogUpdate}
+                />
                 <Route
                   path={process.env.PUBLIC_URL + "/blog-standard"}
                   component={BlogStandard}
